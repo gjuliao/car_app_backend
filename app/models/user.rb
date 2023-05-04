@@ -8,6 +8,6 @@ class User < ApplicationRecord
 
   has_many :reservations, dependent: :destroy
   has_many :cars, through: :reservations, dependent: :destroy
-       
+
   validates :name, presence: true, length: { maximum: 40 }
 end
