@@ -1,4 +1,3 @@
-
 class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
   respond_to :json
 
@@ -6,7 +5,7 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
     user = User.new(sign_up_params)
 
     if user.save
-      render json: { user:, message: 'Sign up success', is_success: true }, status: :ok
+      render json: { user:, message: 'Signed up successfully', is_success: true }, status: :ok
     else
       render json: { message: 'Sign up failed', is_success: false }, status: :unprocessable_entity
     end
