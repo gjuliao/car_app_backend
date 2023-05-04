@@ -41,7 +41,7 @@ end
 gem 'devise'
 gem 'devise-jwt'
 
-#serialization
+# serialization
 gem 'active_model_serializers', '~> 0.10.13'
 
 # rswa
