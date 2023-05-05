@@ -21,6 +21,27 @@ class Api::V1::CarsController < ApplicationController
     end
   end
 
+  # PUT /cars/:id
+  def update
+    if @car
+      @car.update(car_params)
+      render json: { message: 'Car successfully updated.' }, status: :ok
+    else
+      render json: { error: 'Unable to update car.' }, status: :unprocessable_entity
+    end
+  end
+
+  # DELETE /cars/:id
+  def destroy
+    @car = Car.find(params[:id])
+    if @car
+      @car.destroy
+      render json: { message: 'Car successfully deleted.' }, status: :ok
+    else
+      render json: { error: 'Unable to delete car.' }, status: :bad_request
+    end
+  end
+
   private
 
   def car_params
