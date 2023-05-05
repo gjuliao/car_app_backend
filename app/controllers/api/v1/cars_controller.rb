@@ -3,46 +3,61 @@ class Api::V1::CarsController < ApplicationController
   # GET /cars
   def index
     @cars = Car.all
-    render json: @cars
+    if @cars.empty?
+      render_response(:not_found)
+    else
+      render_response(:founded, payload: @cars)
+    end
   end
 
   # GET /cars/:id
   def show
-    render json: @car.to_json
+    if @car.nil?
+      render_response(:not_found)
+    else
+      render_response(:founded, payload: @car)
+    end
   end
 
   # POST /cars
   def create
     @car = Car.new(car_params)
     if @car.save
-      render json: @car, status: :created
+      render_response(:created)
     else
-      render json: @car.errors, status: :unprocessable_entity
+      render_response(:unable_to_create)
     end
   end
 
   # PUT /cars/:id
   def update
-    if @car
-      @car.update(car_params)
-      render json: { message: 'Car successfully updated.' }, status: :ok
+    if %i[model image description price brand year color is_electric accidents].any? { |param| params[param].present? }
+      @car.update(car_params) ? render_response(:updated) : render_response(:unable_to_update)
     else
-      render json: { error: 'Unable to update car.' }, status: :unprocessable_entity
+      render_response(:none_attribute)
     end
   end
 
   # DELETE /cars/:id
   def destroy
-    @car = Car.find(params[:id])
-    if @car
-      @car.destroy
-      render json: { message: 'Car successfully deleted.' }, status: :ok
+    if @car.destroy
+      render_response(:deleted)
     else
-      render json: { error: 'Unable to delete car.' }, status: :bad_request
+      render_response(:unable_to_delete)
     end
   end
 
   private
+
+  def render_response(code, payload = {})
+    render json: {
+      errors: CAR_RESPONSES[code][:errors],
+      message_code: code,
+      message: CAR_RESPONSES[code][:message],
+      **payload
+    }, status: CAR_RESPONSES[code][:status]
+
+  end
 
   def car_params
     params.require(:car).permit(:model, :image, :description, :price, :brand, :year, :color, :is_electric, :accidents)
@@ -50,5 +65,7 @@ class Api::V1::CarsController < ApplicationController
 
   def find_car
     @car = Car.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render_response(:not_found)
   end
 end
