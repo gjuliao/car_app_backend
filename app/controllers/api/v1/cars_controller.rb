@@ -56,7 +56,6 @@ class Api::V1::CarsController < ApplicationController
       message: CAR_RESPONSES[code][:message],
       **payload
     }, status: CAR_RESPONSES[code][:status]
-
   end
 
   def car_params
