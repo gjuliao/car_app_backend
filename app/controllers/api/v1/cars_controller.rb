@@ -6,7 +6,7 @@ class Api::V1::CarsController < ApplicationController
     if @cars.empty?
       render_response(:not_found)
     else
-      render_response(:founded, payload: @cars)
+      render_response(:found, payload: @cars)
     end
   end
 
@@ -15,7 +15,7 @@ class Api::V1::CarsController < ApplicationController
     if @car.nil?
       render_response(:not_found)
     else
-      render_response(:founded, payload: @car)
+      render_response(:found, payload: @car)
     end
   end
 
@@ -48,15 +48,6 @@ class Api::V1::CarsController < ApplicationController
   end
 
   private
-
-  def render_response(code, payload = {})
-    render json: {
-      errors: CAR_RESPONSES[code][:errors],
-      message_code: code,
-      message: CAR_RESPONSES[code][:message],
-      **payload
-    }, status: CAR_RESPONSES[code][:status]
-  end
 
   def car_params
     params.require(:car).permit(:model, :image, :description, :price, :brand, :year, :color, :is_electric, :accidents)
