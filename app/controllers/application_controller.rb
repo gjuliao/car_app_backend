@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
 
   def render_response(code, payload = {})
     caller = self.class.name.split('::').last
-    switcher = "#{caller.chomp("Controller").upcase}_RESPONSES"
+    switcher = "#{caller.chomp('Controller').upcase}_RESPONSES"
     responses = Object.const_get(switcher)
 
     render json: {
