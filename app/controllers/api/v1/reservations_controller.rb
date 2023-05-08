@@ -19,10 +19,20 @@ class Api::V1::ReservationsController < ApplicationController
     end
   end
 
+  # POST /reservations
+  def create
+    @reservation = Reservation.new(reservation_params)
+    if @reservation.save
+      render_response(:created)
+    else
+       render_response(:unable_to_create)
+    end
+  end
+
   private
 
   def reservation_params
-    params.require(:reservation).permit(:city, :start_date, :return_date)
+    params.require(:reservation).permit(:city, :start_date, :return_date, :user_id, :car_id)
   end
 
   def find_reservation
