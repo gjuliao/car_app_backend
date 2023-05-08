@@ -12,7 +12,7 @@ second_user = User.create(name: 'Giovanni Juliao', email: 'giovani@gmail.com', p
   password_confirmation: '123456')
 
 third_user = User.create(name: 'Diego C', email: 'diego@gmail.com', password: '123456',
-  password_confirmation: '123456')
+    password_confirmation: '123456')
 
 fourth_user = User.create(name: 'Paul S', email: 'paul@gmail.com', password: '123456',
   password_confirmation: '123456')
