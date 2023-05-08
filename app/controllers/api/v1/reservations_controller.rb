@@ -10,7 +10,7 @@ class Api::V1::ReservationsController < ApplicationController
     end
   end
 
-  # GET /reservations/:id 
+  # GET /reservations/:id
   def show
     if @reservation.nil?
       render_response(:not_found)
@@ -25,7 +25,7 @@ class Api::V1::ReservationsController < ApplicationController
     if @reservation.save
       render_response(:created)
     else
-       render_response(:unable_to_create)
+      render_response(:unable_to_create)
     end
   end
 
@@ -40,5 +40,4 @@ class Api::V1::ReservationsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     render_response(:not_found)
   end
-
 end
