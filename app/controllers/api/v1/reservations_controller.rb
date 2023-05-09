@@ -30,6 +30,24 @@ class Api::V1::ReservationsController < ApplicationController
     end
   end
 
+  # PUT /reservations/:id
+  def update
+    if %i[city start_date return_date user_id car_id].any? { |param| params[param].present? }
+      @reservation.update(reservation_params) ? render_response(:updated) : render_response(:unable_to_update)
+    else
+      render_response(:none_attribute)
+    end
+  end
+
+  # DELETE /reservations/:id
+  def destroy
+    if @reservation.destroy
+      render_response(:cancelled)
+    else
+      render_response(:unable_to_cancel)
+    end
+  end
+
   private
 
   def reservation_params
