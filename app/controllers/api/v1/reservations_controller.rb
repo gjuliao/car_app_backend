@@ -2,7 +2,8 @@ class Api::V1::ReservationsController < ApplicationController
   before_action :find_reservation, only: %i[show update destroy]
   # GET /reservations by user
   def index
-    @reservations = Reservation.all
+    @current_user = User.find(request.params['user_id'])
+    @reservations = @current_user.reservations
     if @reservations.empty?
       render_response(:not_found)
     else
