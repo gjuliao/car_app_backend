@@ -38,6 +38,15 @@ class Api::V1::ReservationsController < ApplicationController
     end
   end
 
+  # DELETE /reservations/:id
+  def destroy
+   if @reservation.destroy
+     render_response(:deleted)
+   else
+     render_response(:unable_to_delete)
+   end
+  end
+
   private
 
   def reservation_params
