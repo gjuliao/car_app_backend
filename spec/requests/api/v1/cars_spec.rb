@@ -30,7 +30,8 @@ RSpec.describe 'Api::V1::Cars', type: :request do
       accidents: 2
     )
     @reservation = Reservation.create!(start_date: '2023/05/09', return_date: '2023/05/12', user: @user, car: @car1, city: 'Loja')
-    end
+  end
+
   describe 'GET /index' do
     before do
       get api_v1_cars_path
@@ -42,6 +43,16 @@ RSpec.describe 'Api::V1::Cars', type: :request do
 
     it 'returns all cars' do
       expect(assigns(:cars)).to match_array([@car1, @car2])
+    end
+  end
+
+  describe 'GET /show' do
+    before do
+      get api_v1_car_path(id: @car1.id)
+    end
+
+    it 'responds successfully' do
+      expect(response).to be_successful
     end
 
   end
