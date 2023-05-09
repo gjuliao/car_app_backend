@@ -55,5 +55,24 @@ RSpec.describe 'Api::V1::Cars', type: :request do
       expect(response).to be_successful
     end
 
+    it 'Retrieve data correctly' do
+      parsed_response = JSON.parse(response.body)
+
+      expect(parsed_response['errors']).to be_falsey
+      expect(parsed_response['message_code']).to eq('found')
+      expect(parsed_response['message']).to eq('Car found')
+
+      payload = parsed_response['payload']
+      expect(payload['id']).to eq(@car1.id)
+      expect(payload['model']).to eq(@car1.model)
+      expect(payload['image']).to eq(@car1.image)
+      expect(payload['description']).to eq(@car1.description)
+      expect(payload['price']).to eq(@car1.price.to_s)
+      expect(payload['brand']).to eq(@car1.brand)
+      expect(payload['year']).to eq(@car1.year.to_s)
+      expect(payload['color']).to eq(@car1.color)
+      expect(payload['accidents']).to eq(@car1.accidents)
+    end
+
   end
 end
