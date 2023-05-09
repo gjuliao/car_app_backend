@@ -73,6 +73,30 @@ RSpec.describe 'Api::V1::Cars', type: :request do
       expect(payload['color']).to eq(@car1.color)
       expect(payload['accidents']).to eq(@car1.accidents)
     end
-
   end
+
+  describe 'POST /create' do
+
+    it 'Creates a new car' do
+      car_params = {
+        model: '2018 Jaguar F-Type Coupe',
+        image: 'https://simaautoservice.se/wp-content/uploads/2021/07/car-image-transparent-background-8.png',
+        description: 'The 2018 Jaguar F-Type Coupe is a luxury sports car that boasts sleek and stylish design.',
+        price: 550,
+        brand: 'Land Rover',
+        year: '2018-01-01',
+        color: 'Gray',
+        is_electric: false,
+        accidents: 0
+      }
+      post api_v1_cars_path, params: { car: car_params }
+      expect(response).to be_successful
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['errors']).to be_falsey
+      expect(parsed_response['message_code']).to eq('created')
+      expect(parsed_response['message']).to eq('Car successfully created')
+      
+    end
+  end
+
 end
