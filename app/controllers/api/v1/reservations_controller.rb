@@ -40,11 +40,11 @@ class Api::V1::ReservationsController < ApplicationController
 
   # DELETE /reservations/:id
   def destroy
-   if @reservation.destroy
-     render_response(:cancelled)
-   else
-     render_response(:unable_to_cancel)
-   end
+    if @reservation.destroy
+      render_response(:cancelled)
+    else
+      render_response(:unable_to_cancel)
+    end
   end
 
   private
