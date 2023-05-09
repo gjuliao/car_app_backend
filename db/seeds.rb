@@ -119,5 +119,6 @@ users = [first_user, second_user, third_user, fourth_user]
 cars = [first_car, second_car, third_car, fourth_car, fifth_car, sixth_car]
 
 reservation1 = Reservation.create(start_date: '2023/05/09', return_date: '2023/05/12', user: User.first, car: Car.first, city: 'Loja')
+reservation2 = Reservation.create(start_date: '2023/05/13', return_date: '2023/05/15', user: second_user, car: Car.second, city: 'Lima')
 
       
