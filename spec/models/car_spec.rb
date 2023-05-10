@@ -26,7 +26,7 @@ RSpec.describe Car, type: :model do
       it 'should not create a valid car if price is nil' do
         car = Car.create(model: '2020 Some model', image: 'http://someurl.png', price: nil, accidents: 0)
 
-        expect(car).to be_valid
+        expect(car).to_not be_valid
       end
 
       it 'should not create a valid car if accidents is nil' do
@@ -94,6 +94,28 @@ RSpec.describe Car, type: :model do
         car = Car.create(model: '2020 Some model', image: 'http://someurl.png', description: 'Some car', price: 1000)
 
         expect(car).to_not be_valid
+      end
+    end
+  end
+
+  describe 'When associating a car' do
+    context 'with reservations' do
+      it 'has many reservations dependent on destroy configured' do
+        expect(Car.reflect_on_association(:reservations).macro).to eq :has_many
+        expect(Car.reflect_on_association(:reservations).options[:dependent]).to eq :destroy
+      end
+
+      it 'has many reservations' do
+        car_with_res = car_with_reservations(counter: 5)
+        expect(car_with_res.reservations.count).to eq 5
+      end
+
+      it 'has many reservations' do
+        car = create(:car)
+        user = create(:paul)
+        reservation1 = create(:reservation, user:, car:, start_date: Date.today, return_date: Date.tomorrow)
+        reservation2 = create(:reservation, user:, car:, start_date: Date.today + 1.day, return_date: Date.tomorrow + 1.day)
+        expect(car.reservations).to match_array([reservation1, reservation2])
       end
     end
   end
