@@ -109,7 +109,7 @@ RSpec.describe Reservation, type: :model do
         car = create(:car)
         reservation = create(:reservation, car:)
         expect(reservation.car).to eq(car)
-      end  
+      end
     end
   end
 end
