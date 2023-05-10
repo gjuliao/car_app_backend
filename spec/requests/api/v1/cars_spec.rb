@@ -41,7 +41,7 @@ RSpec.describe 'Api::V1::Cars', type: :request do
     it 'should returns a successful response' do
       expect(response).to be_successful
     end
-    
+
     it 'returns all cars' do
       expect(assigns(:cars)).to match_array([@car1, @car2])
     end
@@ -119,12 +119,12 @@ RSpec.describe 'Api::V1::Cars', type: :request do
     it 'Updates information of a car' do
       put api_v1_car_path(id: @car2.id), params: { car: { model: 'Jetta' } }
       expect(response).to be_successful
-        parsed_response = JSON.parse(response.body)
-        expect(parsed_response['errors']).to be_falsey
-        expect(parsed_response['message_code']).to eq('updated')
-        expect(parsed_response['message']).to eq('Car successfully updated')
-        @car2.reload
-        expect(@car2.model).to eq('Jetta')
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['errors']).to be_falsey
+      expect(parsed_response['message_code']).to eq('updated')
+      expect(parsed_response['message']).to eq('Car successfully updated')
+      @car2.reload
+      expect(@car2.model).to eq('Jetta')
     end
   end
 
@@ -132,8 +132,8 @@ RSpec.describe 'Api::V1::Cars', type: :request do
     it 'Delete a car' do
       delete api_v1_car_path(id: @car1.id)
       expect(response).to be_successful
-        parsed_response = JSON.parse(response.body)
-        expect(parsed_response['message']).to eq('Car successfully deleted')
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['message']).to eq('Car successfully deleted')
     end
   end
 end

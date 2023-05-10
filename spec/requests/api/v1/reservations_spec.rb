@@ -30,7 +30,7 @@ RSpec.describe 'Api::V1::Reservations', type: :request do
       accidents: 2
     )
     @reservation1 = Reservation.create!(start_date: '2023/05/09', return_date: '2023/05/12', user: @user, car: @car1,
-                                       city: 'Loja')
+                                        city: 'Loja')
     @reservation2 = Reservation.create!(start_date: '2023/05/09', return_date: '2023/05/12', user: @user, car: @car2,
                                         city: 'Lima')
   end
@@ -97,5 +97,17 @@ RSpec.describe 'Api::V1::Reservations', type: :request do
     end
   end
 
-
+  describe 'PUT /update' do
+    it 'Updates information of a reservation' do
+      put api_v1_user_reservation_path(user_id: @user.id, id: @reservation2.id),
+          params: { reservation: { return_date: '2024/01/01' } }
+      expect(response).to be_successful
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['errors']).to be_falsey
+      expect(parsed_response['message_code']).to eq('updated')
+      expect(parsed_response['message']).to eq('Reservation successfully updated')
+      @reservation2.reload
+      expect(@reservation2.return_date).to eq('2024/01/01')
+    end
+  end
 end
