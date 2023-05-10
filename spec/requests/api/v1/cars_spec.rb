@@ -127,4 +127,13 @@ RSpec.describe 'Api::V1::Cars', type: :request do
         expect(@car2.model).to eq('Jetta')
     end
   end
+
+  describe 'DELETE /destroy' do
+    it 'Delete a car' do
+      delete api_v1_car_path(id: @car1.id)
+      expect(response).to be_successful
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response['message']).to eq('Car successfully deleted')
+    end
+  end
 end
