@@ -41,7 +41,7 @@ RSpec.describe 'Api::V1::Cars', type: :request do
     it 'should returns a successful response' do
       expect(response).to be_successful
     end
-
+    
     it 'returns all cars' do
       expect(assigns(:cars)).to match_array([@car1, @car2])
     end

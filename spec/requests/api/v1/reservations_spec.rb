@@ -49,4 +49,25 @@ RSpec.describe 'Api::V1::Reservations', type: :request do
     end
   end
 
+  describe 'GET /show' do
+    before do
+      get api_v1_user_reservation_path(user_id: @user.id, id: @reservation1.id)
+    end
+
+    it 'responds successfully' do
+      expect(response).to be_successful
+    end
+
+    it 'Retrieve data correctly' do
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['errors']).to be_falsey
+      expect(parsed_response['message_code']).to eq('found')
+      expect(parsed_response['message']).to eq('Reservation found')
+      payload = parsed_response['payload']
+      expect(payload['start_date']).to eq(@reservation1.start_date.to_s)
+      expect(payload['return_date']).to eq(@reservation1.return_date.to_s)
+      expect(payload['city']).to eq(@reservation1.city)
+    end
+  end
+
 end
