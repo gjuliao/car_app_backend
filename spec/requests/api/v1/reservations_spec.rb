@@ -70,4 +70,22 @@ RSpec.describe 'Api::V1::Reservations', type: :request do
     end
   end
 
+  describe 'POST /create' do
+    it 'Creates a new reservation' do
+      reservation_params = {
+        start_date: '2023/06/01', return_date: '2023/06/02', user_id: @user.id, car_id: @car1.id,
+        city: 'Bogota'
+      }
+      post api_v1_user_reservations_path(user_id: @user.id), params: { reservation: reservation_params }
+      p response.request.params
+      puts response.body
+      expect(response).to be_successful
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['errors']).to be_falsey
+      expect(parsed_response['message_code']).to eq('created')
+      expect(parsed_response['message']).to eq('Reservation successfully created')
+    end
+  end
+
+
 end
