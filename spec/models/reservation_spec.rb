@@ -86,4 +86,30 @@ RSpec.describe Reservation, type: :model do
       end
     end
   end
+
+  describe 'When associating a reservation' do
+    context 'with car' do
+      it 'should belong to one car configured' do
+        reservation = Reservation.reflect_on_association(:car)
+        expect(reservation.macro).to eq(:belongs_to)
+      end
+
+      it 'should belong to one user configured' do
+        reservation = Reservation.reflect_on_association(:user)
+        expect(reservation.macro).to eq(:belongs_to)
+      end
+
+      it 'belongs to a user' do
+        user = create(:paul)
+        reservation = create(:reservation, user:)
+        expect(reservation.user).to eq(user)
+      end
+
+      it 'belongs to a car' do
+        car = create(:car)
+        reservation = create(:reservation, car:)
+        expect(reservation.car).to eq(car)
+      end  
+    end
+  end
 end
