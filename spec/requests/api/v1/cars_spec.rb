@@ -117,7 +117,8 @@ RSpec.describe 'Api::V1::Cars', type: :request do
 
   describe 'PUT /update' do
     it 'Updates information of a car' do
-      put api_v1_car_path(id: @car2.id), params: { car: { model: 'Jetta' } }
+      put api_v1_car_path(id: @car2.id), 
+      params: { car: { model: 'Jetta' } }
       expect(response).to be_successful
       parsed_response = JSON.parse(response.body)
       expect(parsed_response['errors']).to be_falsey

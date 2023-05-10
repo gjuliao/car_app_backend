@@ -100,14 +100,23 @@ RSpec.describe 'Api::V1::Reservations', type: :request do
   describe 'PUT /update' do
     it 'Updates information of a reservation' do
       put api_v1_user_reservation_path(user_id: @user.id, id: @reservation2.id),
-          params: { reservation: { return_date: '2024/01/01' } }
+          params: { reservation: { city: 'Bogota' } }
       expect(response).to be_successful
       parsed_response = JSON.parse(response.body)
       expect(parsed_response['errors']).to be_falsey
       expect(parsed_response['message_code']).to eq('updated')
       expect(parsed_response['message']).to eq('Reservation successfully updated')
       @reservation2.reload
-      expect(@reservation2.return_date).to eq('2024/01/01')
+      expect(@reservation2.city).to eq('Bogota')
+    end
+  end
+
+  describe 'DELETE /destroy' do
+    it 'Delete a reservation' do
+      delete api_v1_user_reservation_path(user_id: @user.id, id: @reservation1.id)
+      expect(response).to be_successful
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response['message']).to eq('Reservation successfully cancelled')
     end
   end
 end
