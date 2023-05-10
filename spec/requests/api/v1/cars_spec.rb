@@ -5,7 +5,7 @@ RSpec.describe 'Api::V1::Cars', type: :request do
 
   before do
     @user = User.create!(name: 'Belay Birhanu', email: 'belay@gmail.com', password: '123456',
-      password_confirmation: '123456')
+                         password_confirmation: '123456')
     login_as(@user, scope: :user)
     @car1 = Car.create!(
       model: '2018 Jaguar F-Type Coupe',
@@ -29,7 +29,8 @@ RSpec.describe 'Api::V1::Cars', type: :request do
       is_electric: true,
       accidents: 2
     )
-    @reservation = Reservation.create!(start_date: '2023/05/09', return_date: '2023/05/12', user: @user, car: @car1, city: 'Loja')
+    @reservation = Reservation.create!(start_date: '2023/05/09', return_date: '2023/05/12', user: @user, car: @car1,
+                                       city: 'Loja')
   end
 
   describe 'GET /index' do
@@ -57,11 +58,9 @@ RSpec.describe 'Api::V1::Cars', type: :request do
 
     it 'Retrieve data correctly' do
       parsed_response = JSON.parse(response.body)
-
       expect(parsed_response['errors']).to be_falsey
       expect(parsed_response['message_code']).to eq('found')
       expect(parsed_response['message']).to eq('Car found')
-
       payload = parsed_response['payload']
       expect(payload['id']).to eq(@car1.id)
       expect(payload['model']).to eq(@car1.model)
@@ -76,7 +75,6 @@ RSpec.describe 'Api::V1::Cars', type: :request do
   end
 
   describe 'POST /create' do
-
     it 'Creates a new car' do
       car_params = {
         model: '2018 Jaguar F-Type Coupe',
@@ -95,7 +93,6 @@ RSpec.describe 'Api::V1::Cars', type: :request do
       expect(parsed_response['errors']).to be_falsey
       expect(parsed_response['message_code']).to eq('created')
       expect(parsed_response['message']).to eq('Car successfully created')
-      
     end
 
     it 'Give error when not all required parameters are given' do
@@ -115,8 +112,19 @@ RSpec.describe 'Api::V1::Cars', type: :request do
       expect(parsed_response['errors']).to be_truthy
       expect(parsed_response['message_code']).to eq('unable_to_create')
       expect(parsed_response['message']).to eq('Unable to create car')
-      
     end
   end
 
+  describe 'PUT /update' do
+    it 'Updates information of a car' do
+      put api_v1_car_path(id: @car2.id), params: { car: { model: 'Jetta' } }
+      expect(response).to be_successful
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response['errors']).to be_falsey
+        expect(parsed_response['message_code']).to eq('updated')
+        expect(parsed_response['message']).to eq('Car successfully updated')
+        @car2.reload
+        expect(@car2.model).to eq('Jetta')
+    end
+  end
 end
