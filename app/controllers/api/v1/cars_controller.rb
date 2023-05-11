@@ -31,10 +31,10 @@ class Api::V1::CarsController < ApplicationController
 
   # PUT /cars/:id
   def update
-    if %i[model image description price brand year color is_electric accidents].any? { |param| params[param].present? }
-      @car.update(car_params) ? render_response(:updated) : render_response(:unable_to_update)
-    else
+    if car_params.blank? || car_params.empty? || car_params.nil?
       render_response(:none_attribute)
+    else
+      @car.update(car_params) ? render_response(:updated) : render_response(:unable_to_update)
     end
   end
 
@@ -50,7 +50,11 @@ class Api::V1::CarsController < ApplicationController
   private
 
   def car_params
+    # Accessing a parameter that doesn't exist will raise a KeyError exception
     params.require(:car).permit(:model, :image, :description, :price, :brand, :year, :color, :is_electric, :accidents)
+  rescue KeyError => e
+    # Handle the exception by setting a default value for the missing parameter
+    {}
   end
 
   def find_car
