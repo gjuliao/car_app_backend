@@ -22,7 +22,8 @@ class Api::V1::ReservationsController < ApplicationController
 
   # POST /reservations
   def create
-    @reservation = Reservation.new(reservation_params)
+    @current_user = User.find(request.params['user_id'])
+    @reservation = @current_user.reservations.new(reservation_params)
     if @reservation.save
       render_response(:created)
     else
