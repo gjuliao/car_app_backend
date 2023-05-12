@@ -38,5 +38,23 @@ module CarAppBackend
     config.session_store :cookie_store, key: '_interslice_session'
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use config.session_store, config.session_options
+
+    config.to_prepare do
+      Devise::FailureApp.class_eval do
+        def respond
+          if request_format == :json
+            self.status = 401
+            self.content_type = 'application/json'
+            self.response_body = {
+              errors: true,
+              message_code: 'unauthorized',
+              message: i18n_message,
+            }.to_json
+          else
+            http_auth
+          end
+        end
+      end
+    end
   end
 end
