@@ -1,50 +1,72 @@
 class Api::V1::ReservationsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_reservation, only: %i[show update destroy]
+
   # GET /reservations by user
   def index
-    @current_user = User.find(request.params['user_id'])
-    @reservations = @current_user.reservations
-    if @reservations.empty?
-      render_response(:not_found)
+    @reservations = Reservation.where(user_id: request.params['user_id'])
+    if can? :read_user_reservations, @reservations.to_a
+      if @reservations.empty?
+        render_response(:not_found)
+      else
+        render_response(:found, payload: @reservations)
+      end
     else
-      render_response(:found, payload: @reservations)
+      render_response(:unauthorized)
     end
   end
 
   # GET /reservations/:id
   def show
-    if @reservation.nil?
-      render_response(:not_found)
+    if can? :read, @reservation
+      if @reservation.nil?
+        render_response(:not_found)
+      else
+        render_response(:found, payload: @reservation)
+      end
     else
-      render_response(:found, payload: @reservation)
+      render_response(:unauthorized)
     end
   end
 
   # POST /reservations
   def create
     @reservation = Reservation.new(reservation_params)
-    if @reservation.save
-      render_response(:created)
+    @reservation.user_id =request.params['user_id']
+    if can? :create, @reservation
+      if @reservation.save
+        render_response(:created)
+      else
+        render_response(:unable_to_create)
+      end
     else
-      render_response(:unable_to_create)
+      render_response(:found, payload: @reservation)
     end
   end
 
   # PUT /reservations/:id
   def update
-    if %i[city start_date return_date user_id car_id].any? { |param| params[param].present? }
-      @reservation.update(reservation_params) ? render_response(:updated) : render_response(:unable_to_update)
+    if can? :update, @reservation
+      if %i[city start_date return_date user_id car_id].any? { |param| params[param].present? }
+        @reservation.update(reservation_params) ? render_response(:updated) : render_response(:unable_to_update)
+      else
+        render_response(:none_attribute)
+      end
     else
-      render_response(:none_attribute)
+      render_response(:found, payload: @reservation)
     end
   end
 
   # DELETE /reservations/:id
   def destroy
-    if @reservation.destroy
-      render_response(:cancelled)
+    if can? :destroy, @reservation
+      if @reservation.destroy
+        render_response(:cancelled)
+      else
+        render_response(:unable_to_cancel)
+      end
     else
-      render_response(:unable_to_cancel)
+      render_response(:found, payload: @reservation)
     end
   end
 
