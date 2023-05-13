@@ -32,7 +32,7 @@ class Api::V1::ReservationsController < ApplicationController
   # POST /reservations
   def create
     @reservation = Reservation.new(reservation_params)
-    @reservation.user_id =request.params['user_id']
+    @reservation.user_id = request.params['user_id']
     if can? :create, @reservation
       if @reservation.save
         render_response(:created)
@@ -40,20 +40,20 @@ class Api::V1::ReservationsController < ApplicationController
         render_response(:unable_to_create)
       end
     else
-      render_response(:found, payload: @reservation)
+      render_response(:unauthorized)
     end
   end
 
   # PUT /reservations/:id
   def update
     if can? :update, @reservation
-      if %i[city start_date return_date user_id car_id].any? { |param| params[param].present? }
-        @reservation.update(reservation_params) ? render_response(:updated) : render_response(:unable_to_update)
-      else
+      if reservation_params.blank? || reservation_params.empty? || reservation_params.nil?
         render_response(:none_attribute)
+      else
+        @reservation.update(reservation_params) ? render_response(:updated) : render_response(:unable_to_update)
       end
     else
-      render_response(:found, payload: @reservation)
+      render_response(:unauthorized)
     end
   end
 
@@ -66,14 +66,18 @@ class Api::V1::ReservationsController < ApplicationController
         render_response(:unable_to_cancel)
       end
     else
-      render_response(:found, payload: @reservation)
+      render_response(:unauthorized)
     end
   end
 
   private
 
   def reservation_params
+    # Accessing a parameter that doesn't exist will raise a KeyError exception
     params.require(:reservation).permit(:city, :start_date, :return_date, :user_id, :car_id)
+  rescue KeyError
+    # Handle the exception by setting a default value for the missing parameter
+    {}
   end
 
   def find_reservation

@@ -43,11 +43,13 @@ USERS_RESPONSES = {
 SESSIONS_RESPONSES = {
   :signed_in => { errors: false, message: 'User successfully signed in', status: :ok },
   :signed_out => { errors: false, message: 'User successfully signed out', status: :ok },
+  :unable_to_sign_up => { errors: true, message: 'Unable to sign up', status: :unprocessable_entity },
   :already_signed_out => { errors: false, message: 'User already signed out', status: :ok }
 }
 
 REGISTRATIONS_RESPONSES = {
   :unauthenticated => { errors: true, message: 'You need to sign in or sign up before continuing.', status: :unauthorized },
   :signed_up => { errors: false, message: 'User successfully signed up', status: :created },
+  :unable_to_sign_up => { errors: true, message: 'Unable to sign up', status: :unprocessable_entity },
   :account_deleted => { errors: false, message: 'User account successfully deleted', status: :ok }
 }
