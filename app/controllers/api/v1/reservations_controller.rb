@@ -34,15 +34,22 @@ class Api::V1::ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
     @reservation.user_id = request.params['user_id']
     if can? :create, @reservation
-      if @reservation.save
-        render_response(:created)
-      else
-        render_response(:unable_to_create)
+      if (@reservation.return_date >= @reservation.start_date)
+        if overlapping_reservations?(@reservation).empty?
+          if @reservation.save
+            render_response(:created)
+          else
+            render_response(:unable_to_create)
+          end
+        else
+          render_response(:busy)
+        end
+      else 
+        render_response(:greater)
       end
     else
       render_response(:unauthorized)
     end
-  end
 
   # PUT /reservations/:id
   def update
@@ -50,7 +57,15 @@ class Api::V1::ReservationsController < ApplicationController
       if reservation_params.blank? || reservation_params.empty? || reservation_params.nil?
         render_response(:none_attribute)
       else
-        @reservation.update(reservation_params) ? render_response(:updated) : render_response(:unable_to_update)
+        if @reservation.return_date >= @reservation.start_date
+          if overlapping_reservations?(@reservation).empty?
+            @reservation.update(reservation_params)? render_response(:updated): render_response(:unable_to_update)
+          else
+            render_response(:busy)
+          end
+        else
+          render_response(:greater)
+        end
       end
     else
       render_response(:unauthorized)
@@ -85,4 +100,17 @@ class Api::V1::ReservationsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     render_response(:not_found)
   end
+
+  def overlapping_reservations?(reservation)
+    Reservation.where(
+      car: reservation.car
+    ).where.not(
+      id: reservation.id
+    ).where(
+      "(start_date <= :return_date AND return_date >= :start_date) OR (start_date >= :start_date AND start_date <= :return_date)",
+      start_date: reservation.start_date,
+      return_date: reservation.return_date
+    )
+  end  
+
 end
