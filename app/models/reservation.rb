@@ -9,7 +9,7 @@ class Reservation < ApplicationRecord
 
   def as_json(options = {})
     super(options.merge(
-      only: %i[city start_date return_date]
+      only: %i[id city start_date return_date car_id]
     ))
   end
 
@@ -25,7 +25,7 @@ class Reservation < ApplicationRecord
     return unless car
 
     conflicts = car.reservations.where.not(id:).where(
-      '(start_date <= ? AND return_date >= ?) OR (start_date <= ? AND return_date >= ?) OR (start_date >= ? AND return_date <= ?)',
+      '(start_date <= ? AND return_date >= ?) OR (start_date <= ? AND return_date >= ?) OR (start_date >= ? AND return_date <= ?)', # rubocop: disable Layout/LineLength
       start_date, start_date, return_date, return_date, start_date, return_date
     )
 

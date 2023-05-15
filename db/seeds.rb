@@ -122,23 +122,23 @@ sixth_car = Car.create(
 users = [first_user, second_user, third_user, fourth_user]
 cars = [first_car, second_car, third_car, fourth_car, fifth_car, sixth_car]
 
-cars.each do |car|
-  # Generate 3-5 random reservations for each car
-  start_date = Date.today
-  num_reservations = rand(3..5)
-  num_reservations.times do
-    # Generate random start and return dates
-    start_date += rand(1.day..5.days)
-    return_date = start_date + rand(1.day..5.days)
+# cars.each do |car|
+#   # Generate 3-5 random reservations for each car
+#   start_date = Date.today
+#   num_reservations = rand(3..5)
+#   num_reservations.times do
+#     # Generate random start and return dates
+#     start_date += rand(1.day..5.days)
+#     return_date = start_date + rand(1.day..5.days)
 
-    # Create a reservation for a random user and the current car
-    Reservation.create(start_date: start_date, return_date: return_date, user: users.sample, car: car, city: 'Quito')
-    start_date = return_date
-  end
-end 
+#     # Create a reservation for a random user and the current car
+#     Reservation.create(start_date: start_date, return_date: return_date, user: users.sample, car: car, city: 'Quito')
+#     start_date = return_date
+#   end
+# end 
 
 reservation1 = Reservation.create(start_date: '2023/05/09', return_date: '2023/05/12', user: User.first, car: Car.first, city: 'Loja')
-reservation2 = Reservation.create(start_date: '2023/05/13', return_date: '2023/05/15', user: User.first, car: Car.second, city: 'Lima')
+reservation2 = Reservation.create(start_date: '2023/05/13', return_date: '2023/05/15', user: third_user, car: Car.second, city: 'Lima')
 
      
 # Conflict reservation      
@@ -151,4 +151,4 @@ reservation3 = Reservation.create(start_date: '2023/06/01', return_date: '2023/0
 # reservation5 = Reservation.create(start_date: '2023/05/20', return_date: '2023/05/19', user: User.second, car: Car.third, city: 'Trujillo')
 
 # Updated to busy date
-reservation16 = Reservation.create(start_date: '2023/06/09', return_date: '2023/06/12', user: User.second, car: Car.first, city: 'Loja')
+reservation16 = Reservation.create(start_date: '2023/06/09', return_date: '2023/06/12', user: third_user, car: Car.first, city: 'Loja')
