@@ -74,7 +74,7 @@ class Api::V1::CarsController < ApplicationController
   def car_params
     # Accessing a parameter that doesn't exist will raise a KeyError exception
     params.require(:car).permit(:model, :image, :description, :price, :brand, :year, :color, :is_electric, :accidents)
-  rescue KeyError => e
+  rescue KeyError
     # Handle the exception by setting a default value for the missing parameter
     {}
   end

@@ -11,14 +11,10 @@ class Ability
     return unless user.persisted?
 
     # ok, now we know that this user is logged in and can define common abilities
-    puts 'User'
     can :read_user_reservations, Array do |arr|
-      aux = arr.all? { |el| can?(:read, el) }
-      puts "hola: #{aux}"
-      aux
+      arr.all? { |el| can?(:read, el) }
     end
     can :manage, Reservation, user_id: user.id
-    
     can :read, Car
 
     return unless user.admin?

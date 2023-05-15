@@ -2,7 +2,6 @@ class ApplicationController < ActionController::API
   protected
 
   def render_response(code, payload = {})
-    puts code
     caller = self.class.name.split('::').last
     switcher = "#{caller.chomp('Controller').upcase}_RESPONSES"
     responses = Object.const_get(switcher)
