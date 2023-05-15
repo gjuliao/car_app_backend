@@ -43,6 +43,9 @@ end
 gem 'devise'
 gem 'devise-jwt'
 
+# cancancan
+gem 'cancancan'
+
 # serialization
 gem 'active_model_serializers', '~> 0.10.13'
 
