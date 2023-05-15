@@ -7,13 +7,7 @@ class Car < ApplicationRecord
 
   def as_json(options = {})
     super(options.merge(
-      only: %i[id model image description price brand year color accidents]
-    )).merge({ rented: rented?, electric: is_electric, reservations: })
-  end
-
-  private
-
-  def rented?
-    reservations.where('start_date <= ? AND return_date >= ?', Date.today, Date.today).any?
+      only: %i[id model image description price brand year color accidents is_electric]
+    ))
   end
 end

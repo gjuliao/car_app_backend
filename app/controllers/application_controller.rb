@@ -13,4 +13,12 @@ class ApplicationController < ActionController::API
       **payload
     }, status: responses[code][:status]
   end
+
+  def authenticate_user!(opts = {})
+    if user_signed_in?
+      super(opts)
+    else
+      render_response(:unauthenticated)
+    end
+  end
 end
