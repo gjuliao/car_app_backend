@@ -22,14 +22,10 @@ RESERVATIONS_RESPONSES = {
   :found => { errors: false, message: 'Reservation found', status: :ok },
   :not_found => { errors: true, message: 'Reservation not found', status: :not_found },
   :none_attribute => { errors: true, message: 'None attribute to update', status: :bad_request },
-<<<<<<< Updated upstream
   :unauthorized => { errors: true, message: 'You are not authorized to perform this action', status: :unauthorized },
-  :unauthenticated => { errors: true, message: 'You need to sign in or sign up before continuing.', status: :unauthorized }
-=======
-  :unathorized => { errors: true, message: 'You are not authorized to perform this action', status: :unauthorized },
+  :unauthenticated => { errors: true, message: 'You need to sign in or sign up before continuing.', status: :unauthorized },
   :busy => { errors: true, message: 'Car is already rented for the provided dates', status: :unprocessable_entity},
   :greater => { errors: true, message: 'Return date must be greater than start date', status: :unprocessable_entity}
->>>>>>> Stashed changes
   }
 
 USERS_RESPONSES = {

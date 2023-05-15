@@ -6,7 +6,7 @@ class Reservation < ApplicationRecord
   validates :return_date, presence: true
   validate :return_date_greater_than_start_date
   validate :car_available_on_dates
-  
+
   def as_json(options = {})
     super(options.merge(
       only: %i[city start_date return_date]
@@ -17,17 +17,18 @@ class Reservation < ApplicationRecord
 
   def return_date_greater_than_start_date
     return unless return_date <= start_date
+
     errors.add(:return_date, 'must be greater than start date')
   end
 
   def car_available_on_dates
     return unless car
-    conflicts = car.reservations.where.not(id: id).where(
+
+    conflicts = car.reservations.where.not(id:).where(
       '(start_date <= ? AND return_date >= ?) OR (start_date <= ? AND return_date >= ?) OR (start_date >= ? AND return_date <= ?)',
       start_date, start_date, return_date, return_date, start_date, return_date
     )
-  
-    errors.add(:car, 'is already rented for the provided dates') if conflicts.any?
-  end  
 
+    errors.add(:car, 'is already rented for the provided dates') if conflicts.any?
+  end
 end

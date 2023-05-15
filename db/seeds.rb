@@ -140,10 +140,7 @@ end
 reservation1 = Reservation.create(start_date: '2023/05/09', return_date: '2023/05/12', user: User.first, car: Car.first, city: 'Loja')
 reservation2 = Reservation.create(start_date: '2023/05/13', return_date: '2023/05/15', user: User.first, car: Car.second, city: 'Lima')
 
-
-<<<<<<< Updated upstream
      
-=======
 # Conflict reservation      
 
 reservation3 = Reservation.create(start_date: '2023/06/01', return_date: '2023/06/12', user: User.second, car: Car.second, city: 'Pereira')
@@ -155,4 +152,3 @@ reservation3 = Reservation.create(start_date: '2023/06/01', return_date: '2023/0
 
 # Updated to busy date
 reservation16 = Reservation.create(start_date: '2023/06/09', return_date: '2023/06/12', user: User.second, car: Car.first, city: 'Loja')
->>>>>>> Stashed changes
