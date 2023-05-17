@@ -36,3 +36,10 @@ FactoryBot.define do
     end
   end
 end
+
+def user_with_reservations(counter: 5)
+  user = FactoryBot.create(:user)
+  FactoryBot.create(:car) do |car|
+    FactoryBot.create_list(:reservation, counter, user:, car:)
+  end
+end
