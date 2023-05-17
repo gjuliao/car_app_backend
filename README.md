@@ -79,6 +79,8 @@ and then move to the folder:
 cd car_app_backend
 ```
 
+```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Install
@@ -93,19 +95,22 @@ bundle install
 
 To run the project, execute the following command:
 
+To run the project, execute the following command:
+```console
+bundle exec rails db:create
+bundle exec rails db:migrate
+bundle exec rails start
+```
+then go to [http://localhost:300](http://localhost:300)
+
 Users to log in into the app:
 ```
-user: admin@admin.com
+admin: admin@admin.com
 password: 123456
 
 user: diego@gmail.com
 password: 123456
 ```
-
-```bash
-rails s
-```
-
 
 ### Run tests
 
