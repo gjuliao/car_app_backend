@@ -38,6 +38,7 @@ end
 
 group :development do
   # gem "spring"
+  gem 'bullet'
 end
 # devise
 gem 'devise'
