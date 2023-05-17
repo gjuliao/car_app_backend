@@ -28,14 +28,14 @@ RSpec.describe User, type: :model do
 
       it 'should not create a valid user if password is nil' do
         user = User.create(name: 'User', email: 'user@user.com', password: nil,
-          password_confirmation: '123456')
+                           password_confirmation: '123456')
 
         expect(user).to_not be_valid
       end
 
       it 'should not create a valid user if confirmation password is nil' do
         user = User.create(name: 'User', email: 'user@user.com', password: '123456',
-          password_confirmation: nil)
+                           password_confirmation: nil)
 
         expect(user).to_not be_valid
       end
@@ -44,9 +44,9 @@ RSpec.describe User, type: :model do
     context 'and all required fields are filled but with some empty values' do
       it 'should not create a valid user if name is empty' do
         user = User.create(name: '', email: 'user@user.com', password: '123456',
-          password_confirmation: '123456')
+                           password_confirmation: '123456')
 
-          expect(user).to_not be_valid
+        expect(user).to_not be_valid
       end
 
       it 'should not create a valid user if email is empty' do
@@ -58,14 +58,14 @@ RSpec.describe User, type: :model do
 
       it 'should not create a valid user if password is empty' do
         user = User.create(name: 'User', email: 'user@user.com', password: '',
-          password_confirmation: '123456')
+                           password_confirmation: '123456')
 
         expect(user).to_not be_valid
       end
 
       it 'should not create a valid user if confirmation password is empty' do
         user = User.create(name: 'User', email: 'user@user.com', password: '123456',
-          password_confirmation: '')
+                           password_confirmation: '')
 
         expect(user).to_not be_valid
       end
@@ -75,7 +75,7 @@ RSpec.describe User, type: :model do
       it 'should not create a valid user if name lenght is greater than 40' do
         name = 'a' * 41
         user = User.create(name:, email: 'user@user.com', password: '123456',
-          password_confirmation: '')
+                           password_confirmation: '')
 
         expect(user).to_not be_valid
       end
@@ -83,21 +83,21 @@ RSpec.describe User, type: :model do
       it 'should not create a valid user if password lenght is lesser than 6' do
         password = 'a' * 5
         user = User.create(name: 'User', email: 'user@user.com', password:,
-          password_confirmation: password)
+                           password_confirmation: password)
 
         expect(user).to_not be_valid
       end
 
       it 'should not create a valid car if passwords do not match' do
         user = User.create(name: 'User', email: 'user@user.com', password: '123456',
-          password_confirmation: '12345678')
+                           password_confirmation: '12345678')
 
         expect(user).to_not be_valid
       end
 
       it 'should not create a valid car if email is not well formed' do
         user = User.create(name: 'User', email: 'user$user.com', password: '123456',
-          password_confirmation: '123456')
+                           password_confirmation: '123456')
 
         expect(user).to_not be_valid
       end
@@ -115,7 +115,7 @@ RSpec.describe User, type: :model do
         car = create(:car)
         user = create(:paul)
         reservation1 = create(:reservation, user:, car:, start_date: Date.today + 1.year,
-          return_date: Date.tomorrow + 1.year)
+                                            return_date: Date.tomorrow + 1.year)
         reservation2 = create(:reservation, user:, car:, start_date: Date.today + 21.days,
                                             return_date: Date.tomorrow + 21.day)
         expect(user.reservations).to match_array([reservation1, reservation2])

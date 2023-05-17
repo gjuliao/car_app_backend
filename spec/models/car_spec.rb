@@ -108,7 +108,8 @@ RSpec.describe Car, type: :model do
       it 'has many reservations' do
         car = create(:car)
         user = create(:paul)
-        reservation1 = create(:reservation, user:, car:, start_date: Date.today + 2.years, return_date: Date.tomorrow + 2.years)
+        reservation1 = create(:reservation, user:, car:, start_date: Date.today + 2.years,
+                                            return_date: Date.tomorrow + 2.years)
         reservation2 = create(:reservation, user:, car:, start_date: Date.today + 9.months,
                                             return_date: Date.tomorrow + 9.months)
         expect(car.reservations).to match_array([reservation1, reservation2])

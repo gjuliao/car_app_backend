@@ -24,7 +24,7 @@ class User < ApplicationRecord
 
   def confirmation_password_match
     return unless password != password_confirmation
-    
+
     errors.add(:confirmation_password, 'must match password')
   end
 

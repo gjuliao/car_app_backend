@@ -8,14 +8,14 @@ RSpec.describe Reservation, type: :model do
     context 'and all required fields are filled with valid values' do
       it 'should create a valid reservation if return_date is greater than start_date' do
         reservation = Reservation.create(start_date: Date.today, return_date: Date.today + 1.day, user:, car:,
-          city: 'Lima')
+                                         city: 'Lima')
 
         expect(reservation).to be_valid
       end
 
       it 'should create a valid reservation if return_date is equal to start_date' do
         reservation = Reservation.create(start_date: Date.today, return_date: Date.today + 1.day, user:, car:,
-          city: 'Lima')
+                                         city: 'Lima')
 
         expect(reservation).to be_valid
       end
@@ -24,14 +24,14 @@ RSpec.describe Reservation, type: :model do
     context 'and all required fields are filled but with some nil values' do
       it 'should not create a valid reservation if user is nil' do
         reservation = Reservation.create(start_date: Date.today, return_date: Date.today + 1.day, user: nil, car:,
-          city: 'Lima')
+                                         city: 'Lima')
 
         expect(reservation).to_not be_valid
       end
 
       it 'should not create a valid reservation if car is nil' do
         reservation = Reservation.create(start_date: Date.today, return_date: Date.today + 1.day, user:, car: nil,
-          city: 'Lima')
+                                         city: 'Lima')
 
         expect(reservation).to_not be_valid
       end
@@ -40,16 +40,16 @@ RSpec.describe Reservation, type: :model do
     context 'and all required fields are filled but with some invalid values' do
       it 'should not create a valid reservation if return_date is less than start_date' do
         reservation = Reservation.create(start_date: Date.today + 1.day, return_date: Date.today, user:, car:,
-          city: 'Lima')
+                                         city: 'Lima')
 
         expect(reservation).to_not be_valid
       end
 
       it 'should not create a valid reservation if car is already rented in the period' do
         Reservation.create(start_date: Date.today, return_date: Date.today + 1.day, user:, car:,
-          city: 'Lima')
+                           city: 'Lima')
         reservation = Reservation.create(start_date: Date.today, return_date: Date.today + 1.day, user:, car:,
-          city: 'Lima')
+                                         city: 'Lima')
 
         expect(reservation).to_not be_valid
       end
@@ -58,14 +58,14 @@ RSpec.describe Reservation, type: :model do
     context 'and some required fields are not filled' do
       it 'should not create a valid reservation if user is not filled' do
         reservation = Reservation.create(start_date: Date.today, return_date: Date.today + 1.day, car:,
-          city: 'Lima')
+                                         city: 'Lima')
 
         expect(reservation).to_not be_valid
       end
 
       it 'should not create a valid reservation if car is not filled' do
         reservation = Reservation.create(start_date: Date.today, return_date: Date.today + 1.day, user:,
-          city: 'Lima')
+                                         city: 'Lima')
 
         expect(reservation).to_not be_valid
       end
