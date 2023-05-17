@@ -95,10 +95,15 @@ bundle install
 
 To run the project, execute the following command:
 
-To run the project, execute the following command:
+Create a master.key file in the config folder and paste  the key that was provided
+```
+code ./config/master.key
+```
+
 ```console
 bundle exec rails db:create
 bundle exec rails db:migrate
+bundle exec rails db:seed
 bundle exec rails start
 ```
 then go to [http://localhost:300](http://localhost:300)
