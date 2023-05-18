@@ -3,6 +3,7 @@
 <div align="center">
   <img src="./public/splash-logo.svg" alt="logo" width="256"  height="auto" />
   <br/>
+</div>
 
   <h3><b>RENT CARS</b></h3>
 
