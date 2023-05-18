@@ -18,6 +18,8 @@
   - [Install](#install)
   - [Usage](#usage)
   - [Run tests](#run-tests)
+  - [Deployment](#deployment)
+  - [Kanban Board](#kanban-board)
 - [👥 Authors](#authors)
 - [🔭 Future Features](#future-features)
 - [🤝 Contributing](#contributing)
@@ -56,7 +58,7 @@
 
 To get a local copy up and running, follow these steps.
 
-### Prerequisites
+### Prerequisites <a name="prerequisites"></a>
 
 In order to run this project you need:
 
@@ -64,7 +66,7 @@ In order to run this project you need:
 - [PostgreSQL](https://www.postgresql.org/) installed
 - [RubyonRails](https://rubyonrails.org/) installed
 
-### Setup
+### Setup <a name="setup"></a>
 
 Clone this repository to your desired folder:
 
@@ -79,14 +81,14 @@ cd car_app_backend
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Install
+### Install <a name="install"></a>
 
 Install dependancies with:
 
 ```bash
 bundle install
 ```
-### Usage
+### Usage <a name="usage"></a>
 
 In order to run the project please follow the next steps to create your credentials|masterkey pair:
 
@@ -111,7 +113,7 @@ user: diego@gmail.com
 password: 123456
 ```
 
-### Run tests
+### Run tests <a name="run-tests"></a>
 
 To run tests, run the following command:
 
@@ -120,11 +122,19 @@ rspec spec/models/ // to test models
 rspec spec/requests/api/v1  // to test controllers
 ```
 
-### Deployment
+### Deployment <a name="deployment"></a>
 
 This project would be deployed using:
 
 - [Render](https://render.com/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Kanban Board <a name="kanban-board"></a>
+  - Initial state of Kanban [Board](https://github.com/users/gjuliao/projects/2)
+  - <img src="./public/kanbanStart.png" alt="kanbanBoard" width="256"  height="auto" />
+    <br/>
+  - Number of team members at start and finish: 5 Team members.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
