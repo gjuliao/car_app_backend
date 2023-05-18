@@ -1,6 +1,11 @@
 <a name="readme-top"></a>
 
-<!-- TABLE OF CONTENTS -->
+<div align="center">
+  <img src="./public/splash-logo.svg" alt="logo" width="256"  height="auto" />
+  <br/>
+
+  <h3><b>RENT CARS</b></h3>
+
 # 📗 Table of Contents
 
 - [📖 About the Project](#about-project)
@@ -20,23 +25,18 @@
 - [🙏 Acknowledgements](#acknowledgements)
 - [📝 License](#license)
 
-<!-- PROJECT DESCRIPTION -->
+# 📖 RENT CARS - Back End <a name="about-project"></a>
 
-# 📖 Car APP - Back End <a name="about-project"></a>
-
-** Car APP - Back End ** Is a Ruby Back-End project for users to rent cars, and Admins to create and delete cars.  Users will have the chance to view the history of cars reserved.
+** RENT CARS - Back End ** Is a Ruby Back-End project for users to rent cars, and Admins to create and delete cars.  Users will have the chance to view the history of cars reserved.
 
 ** The app front end can be found [here](https://github.com/gjuliao/car_app_frontend)
 
 ## 🛠 Built With <a name="built-with"></a>
 
-
   <ul>
     <li><a href="https://www.ruby-lang.org/en/documentation/">Ruby on Rails</a></li>
   </ul>
 
-
-<!-- Features -->
 
 ### Key Features <a name="key-features"></a>
 
@@ -51,8 +51,6 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Key Features <a name="key-features"></a>
-
-<!-- GETTING STARTED -->
 
 ## 💻 Getting Started <a name="getting-started"></a>
 
@@ -79,8 +77,6 @@ and then move to the folder:
 cd car_app_backend
 ```
 
-```
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Install
@@ -90,15 +86,13 @@ Install dependancies with:
 ```bash
 bundle install
 ```
-
 ### Usage
 
-To run the project, execute the following command:
+In order to run the project please follow the next steps to create your credentials|masterkey pair:
 
-Create a master.key file in the config folder and paste  the key that was provided
-```
-code ./config/master.key
-```
+1. Delete config/master.key and config/credentials.yml.enc if they exist.
+2. Run in the terminal: `EDITOR=code rails credentials:edit`
+3. This command will create a new master.key and credentials.yml.enc if they do not exist.
 
 ```console
 bundle exec rails db:create
@@ -134,8 +128,6 @@ This project would be deployed using:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- AUTHORS -->
-
 ## 👥 Authors <a name="authors"></a>
 
 👤 **Belay Birhanu**
@@ -161,16 +153,12 @@ This project would be deployed using:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- FUTURE FEATURES -->
-
 ## 🔭 Future Features <a name="future-features"></a>
 
 - **Add price to reservation**
 - **Add plac-id to cars**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- CONTRIBUTING -->
 
 ## 🤝 Contributing <a name="contributing"></a>
 
@@ -180,23 +168,17 @@ Feel free to check the [issues page](https://github.com/gjuliao/car_app_frontend
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- SUPPORT -->
-
 ## ⭐️ Show your support <a name="support"></a>
 
 If you like this project please give it a star.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- ACKNOWLEDGEMENTS -->
-
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
 - [Microverse Team and classmates](https://www.microverse.org/).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- FAQ (optional) -->
 
 ## ❓ FAQ <a name="faq"></a>
 
