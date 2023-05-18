@@ -125,9 +125,7 @@ rspec spec/requests/api/v1  // to test controllers
 
 ### Deployment <a name="deployment"></a>
 
-This project would be deployed using:
-
-- [Render](https://render.com/)
+- [Watch me in action ](https://car-app-backend.onrender.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
