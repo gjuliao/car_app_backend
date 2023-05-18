@@ -11,10 +11,21 @@ class User < ApplicationRecord
   has_many :cars, through: :reservations, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 40 }
+  validates :email, presence: true
+  validates :password, presence: true, length: { minimum: 6 }
+  validates :password_confirmation, presence: true, length: { minimum: 6 }
+  validate :confirmation_password_match
+
   before_create :assign_role
 
   def ability
     @ability ||= Ability.new(self)
+  end
+
+  def confirmation_password_match
+    return unless password != password_confirmation
+
+    errors.add(:confirmation_password, 'must match password')
   end
 
   def admin?
