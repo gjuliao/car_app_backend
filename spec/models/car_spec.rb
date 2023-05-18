@@ -106,16 +106,12 @@ RSpec.describe Car, type: :model do
       end
 
       it 'has many reservations' do
-        car_with_res = car_with_reservations(counter: 5)
-        expect(car_with_res.reservations.count).to eq 5
-      end
-
-      it 'has many reservations' do
         car = create(:car)
         user = create(:paul)
-        reservation1 = create(:reservation, user:, car:, start_date: Date.today, return_date: Date.tomorrow)
-        reservation2 = create(:reservation, user:, car:, start_date: Date.today + 1.day,
-                                            return_date: Date.tomorrow + 1.day)
+        reservation1 = create(:reservation, user:, car:, start_date: Date.today + 2.years,
+                                            return_date: Date.tomorrow + 2.years)
+        reservation2 = create(:reservation, user:, car:, start_date: Date.today + 9.months,
+                                            return_date: Date.tomorrow + 9.months)
         expect(car.reservations).to match_array([reservation1, reservation2])
       end
     end
